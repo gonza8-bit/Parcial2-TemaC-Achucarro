@@ -7,8 +7,42 @@ package modelo;
 
 /**
  *
- * @author USUARIO
+ * @author Gonzalo Achucarro
  */
 public class Trabajador {
+    
+    private int id;
+    private String nombre;
+    private String puesto;
+    private boolean libre;
+
+    public Trabajador(int id, String nombre, String puesto) {
+        this.id = id;
+        this.nombre = nombre;
+        this.puesto = puesto;
+        this.libre = true;
+    }
+    
+    public void setLibre(boolean libre){
+        this.libre = libre;
+    }
+    
+    public boolean isLibre(){
+        return libre;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getPuesto() {
+        return puesto;
+    }
+    
+    
     
 }
