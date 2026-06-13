@@ -4,41 +4,54 @@
  * and open the template in the editor.
  */
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 /**
  *
- * @author USUARIO
+ * @author Gonzalo Achucarro
  */
+@RunWith(value = Parameterized.class)
 public class parameterCIUTest {
-    
-    public parameterCIUTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
+    private String emailInput;
+    private boolean resultadoEsperado;
+
+    public parameterCIUTest(String emailInput, boolean resultadoEsperado) {
+        this.emailInput = emailInput;
+        this.resultadoEsperado = resultadoEsperado;
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    @Parameters
+    public static Collection<Object[]> tomarDatos(){
+        return Arrays.asList(new Object[][]{
+            {"jorgesys@tototita.com", true},
+            {"jorgesys@tototitacom", false},
+            {"jorgesystototita.com", false},
+            {"@jorgesystototita.com", false},
+            {".jorgesystototita@com", false}
+        });
+    }
+
+    public static boolean validarMail(String email) {
+        Pattern pattern = Pattern.compile("^[A-Za-z0-9-\\+]+(\\.[A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9+]+)*(\\.[A-Za-z]{2,})$"); // [cite: 103, 104]
+        Matcher matcher = pattern.matcher(email);
+        return matcher.find();
+    }
+
+    @Test
+    public void testValidarEmailParametrizado() {
+        System.out.println("Evaluando ciclicamente correo: " + emailInput);
+        boolean resultadoReal = validarMail(emailInput);
+        
+        assertEquals("Fallo el patron regex en: " + emailInput, resultadoEsperado, resultadoReal);
+    }
+    
+    
 }

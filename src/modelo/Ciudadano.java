@@ -26,8 +26,8 @@ public class Ciudadano {
         return this.contraseña == contra;
     }
     
-    public void cambioContraseña(String nuevaContra){
-        this.contraseña = Integer.parseInt(nuevaContra);
+    public void cambioPassword(String newPass){
+        this.contraseña = Integer.parseInt(newPass);
     }
     
     public void delay(int mili){
